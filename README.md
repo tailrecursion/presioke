@@ -1,9 +1,14 @@
 # presioke
 
-This application uses the Clojure and the flickr API to obtain random
+This application uses Clojure and the flickr API to obtain random
 images.  The function for fetching the images is exposed to
-ClojureScript using Castra, where images are rendered using Hoplon and
-Javelin.
+ClojureScript using [Castra RPC](https://github.com/tailrecursion/castra), and images are displayed using [Hoplon](https://github.com/tailrecursion/hoplon).
+
+Hoplon (née HLisp) is a Leiningen plugin containing an extended ClojureScript compiler and related tools and libraries like [Javelin](https://github.com/tailrecursion/javelin).
+
+For a rationale and some context related to this style of application development, please see [this design document](https://github.com/tailrecursion/hlisp-starter/blob/master/PROJECT.md).
+
+Hoplon and Castra are currently under heavy development, and this demo is subject to frequent breaking change.  That said, we welcome feedback and contribution.
 
 ## Usage
 
