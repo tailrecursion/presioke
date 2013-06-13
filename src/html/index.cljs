@@ -25,4 +25,6 @@
  (head (title "Presioke"))
  (body
   (reactive-attributes
-   (img {:do [(d/attr! :src current-image)]}))))
+   (img {:do [(d/attr! :src current-image)]})
+   (br)
+   (span {:do [(d/text! (str cursor "/" (count images)))]}))))
