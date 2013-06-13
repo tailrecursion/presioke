@@ -11,3 +11,5 @@ pom.xml.asc
 .lein-plugins
 .lein-repl-history
 .hoplon-work-dir
+/resources/public/*
+.hoplon-lock
