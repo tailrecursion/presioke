@@ -4,7 +4,7 @@
             [alandipert.interpol8 :refer [interpolating]]))
 
 (defn flickr
-  [method & [params]]
+  [method params]
   (assert (contains? params "api_key"))
   (let [response (http/get "http://api.flickr.com/services/rest/"
                            {:query-params
