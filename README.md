@@ -9,7 +9,7 @@ Javelin.
 
     lein hoplon # compile ClojureScript
     lein run    # run a local server
-    gnome-open http://localhost:3000
+    gnome-open http://localhost:3000/index.html
 
 Press any key to advance the images.
 
