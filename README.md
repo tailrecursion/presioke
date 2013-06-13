@@ -7,23 +7,11 @@ Javelin.
 
 ## Usage
 
-### Deployment to Heroku
+    lein hoplon   # compile ClojureScript
+    lein run 3000 # run a local server on port 3000
+    gnome-open http://localhost:3000/index.html
 
-See [Building a Database-Backed Clojure Web
-Application](https://devcenter.heroku.com/articles/clojure-web-application)
-for instructions on installing and configuring the Heroku tools and
-deploying database-backed Clojure applications.
-
-Then, deploy this application as per the article's
-[Deploy](https://devcenter.heroku.com/articles/clojure-web-application#deploy)
-instructions.
-
-### Running Locally
-
-If you are running PostgreSQL locally, you may run the application on
-your machine with a command like:
-
-    foreman start
+Press the space bar to advance the image.
 
 ## License
 
