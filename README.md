@@ -1,10 +1,17 @@
 # presioke
 
-A Clojure library designed to ... well, that part is up to you.
+This application uses the Clojure and the flickr API to obtain random
+images.  The function for fetching the images is exposed to
+ClojureScript using Castra, where images are rendered using Hoplon and
+Javelin.
 
 ## Usage
 
-FIXME
+    lein hoplon # compile ClojureScript
+    lein run    # run a local server
+    gnome-open http://localhost:3000
+
+Press any key to advance the images.
 
 ## License
 
