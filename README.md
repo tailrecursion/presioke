@@ -7,14 +7,26 @@ Javelin.
 
 ## Usage
 
-    lein hoplon # compile ClojureScript
-    lein run    # run a local server
-    gnome-open http://localhost:3000/index.html
+### Deployment to Heroku
 
-Press any key to advance the images.
+See [Building a Database-Backed Clojure Web
+Application](https://devcenter.heroku.com/articles/clojure-web-application)
+for instructions on installing and configuring the Heroku tools and
+deploying database-backed Clojure applications.
+
+Then, deploy this application as per the article's
+[Deploy](https://devcenter.heroku.com/articles/clojure-web-application#deploy)
+instructions.
+
+### Running Locally
+
+If you are running PostgreSQL locally, you may run the application on
+your machine with a command like:
+
+    foreman start
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Alan Dipert
 
 Distributed under the Eclipse Public License, the same as Clojure.

@@ -16,7 +16,7 @@
 
 (def api-key "d4fbe84122c1fb2c58dcdd974f5e46ef")
 
-(async ["tailrecursion.presioke.flickr/get-interesting" api-key]
+(async ['tailrecursion.presioke.flickr/get-interesting api-key]
        #(swap! images into %))
 
 (.on (js/jQuery "body") "keypress" #(swap! cursor inc))

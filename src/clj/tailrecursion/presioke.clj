@@ -1,12 +1,12 @@
 (ns tailrecursion.presioke
   (:require
-   [ring.adapter.jetty           :refer [run-jetty]]
-   [ring.middleware.resource     :refer [wrap-resource]]
-   [ring.middleware.session         :refer [wrap-session]]
-   [ring.middleware.session.cookie  :refer [cookie-store]]
-   [ring.middleware.file         :refer [wrap-file]]
-   [ring.middleware.file-info    :refer [wrap-file-info]]
-   [tailrecursion.castra.handler :refer [castra]]))
+   [ring.adapter.jetty             :refer [run-jetty]]
+   [ring.middleware.resource       :refer [wrap-resource]]
+   [ring.middleware.session        :refer [wrap-session]]
+   [ring.middleware.session.cookie :refer [cookie-store]]
+   [ring.middleware.file           :refer [wrap-file]]
+   [ring.middleware.file-info      :refer [wrap-file-info]]
+   [tailrecursion.castra.handler   :refer [castra]]))
 
 (def app
   (->
@@ -16,5 +16,5 @@
    (wrap-file-info)))
 
 (defn -main
-  [& args]
-  (run-jetty app {:port 3000}))
+  [port]
+  (run-jetty app {:port (Integer. port)}))
