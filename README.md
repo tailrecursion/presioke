@@ -1,22 +1,25 @@
 # presioke
 
-This application uses Clojure and the flickr API to obtain random
-images.  The function for fetching the images is exposed to
-ClojureScript using [Castra RPC](https://github.com/tailrecursion/castra), and images are displayed using [Hoplon](https://github.com/tailrecursion/hoplon).
+This ClojureScript application uses Hoplon and the flickr API to
+obtain random images and display them in the browser.
 
-Hoplon (née HLisp) is a Leiningen plugin containing an extended ClojureScript compiler and related tools and libraries like [Javelin](https://github.com/tailrecursion/javelin).
+Hoplon (née HLisp) is a Leiningen plugin containing an extended
+ClojureScript compiler and related tools and libraries like
+[Javelin](https://github.com/tailrecursion/javelin).
 
-For a rationale and some context related to this style of application development, please see [this design document](https://github.com/tailrecursion/hlisp-starter/blob/master/PROJECT.md).
+For a rationale and some context related to this style of application
+development, please see [this design
+document](https://github.com/tailrecursion/hlisp-starter/blob/master/PROJECT.md).
 
-Hoplon and Castra are currently under heavy development, and this demo is subject to frequent breaking change.  That said, we welcome feedback and contribution.
+Hoplon is currently under heavy development, and this demo is subject
+to frequent breaking change.  That said, we welcome feedback and
+contribution.
 
 ## Usage
 
-    lein hoplon   # compile ClojureScript
-    lein run 3000 # run a local server on port 3000
-    gnome-open http://localhost:3000/index.html
+    lein hoplon auto  # compile ClojureScript (and automatically if sources change)
 
-Press the space bar to advance the image.
+Then, open `resources/public/index.html` in your browser.
 
 ## License
 
