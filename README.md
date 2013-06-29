@@ -1,7 +1,7 @@
 # presioke
 
 This ClojureScript application uses Hoplon and the flickr API to
-obtain random images and display them in the browser.
+obtain random images and display them in the browser.  [Try it](http://alandipert.github.io/presioke/) or [see all of the code](https://github.com/tailrecursion/presioke/blob/master/src/html/index.cljs).
 
 Hoplon (née HLisp) is a Leiningen plugin containing an extended
 ClojureScript compiler and related tools and libraries like
