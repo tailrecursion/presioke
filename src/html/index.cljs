@@ -46,6 +46,37 @@
   "Formula cell. URL of the currently selected image."
   (cell (get images cursor)))
 
+(def current-image-style
+  "creates background style on the body element with the image-url value"
+  (cell (format "background: url(%s); background-size: cover; position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 1;" current-image)))
+
+;;; style maps
+
+(def page-marker-style
+  {:z-index "2"
+   :position "absolute"
+   :background "rgba(0,0,0,0.5)"
+   :border-radius "30px"
+   :color "#fff"
+   :padding "10px"})
+
+(def helper-text-style
+  {:z-index "2"
+   :position "absolute"
+   :background "rgba(0,0,0,0.5)"
+   :border-radius "30px"
+   :color "#fff"
+   :bottom "0"
+   :left "0"
+   :right "0"
+   :text-align "center"
+   :padding "10px"})
+
+(defn inline-style-map
+  [map]
+  (apply str (interpose " " (for [[k v] map]
+  (str (name k) ": " v ";")))))
+
 ;;; initialize
 
 (.on (js/jQuery "body") "keypress click" #(swap! cursor inc))
@@ -55,11 +86,13 @@
         #(swap! images into (map image-url (get-in % ["photos" "photo"]))))
 
 (html
- (head (title "Presioke"))
+ (head
+   (title "Presioke"))
  (body
   (reactive-attributes
-   (img {:do [(d/attr! :src current-image)]})
+   (div {:do [(d/attr! :style current-image-style)]})
+   (span {:do [(d/text! (if ready? (str (inc cursor) "/" (count images)) "Loading..."))
+               (d/attr! :style (inline-style-map page-marker-style))]})
    (br)
-   (span {:do [(d/text! (if ready? (str (inc cursor) "/" (count images)) "Loading..."))]})
-   (br)
-   (span {:do [(d/text! (if ready? "Press a key or click the mouse for a new image."))]}))))
+   (span {:do [(d/text! (if ready? "Press a key or click the mouse for a new image."))
+               (d/attr! :style (inline-style-map helper-text-style))]}))))
