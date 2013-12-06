@@ -32,7 +32,7 @@
 
 (def images
   "Stem cell. Vector of image URLs. Contains an initial default image."
-  (cell '["http://www.auburn.edu/~burnsma/peopl96a.gif"]))
+  (cell ''("http://www.auburn.edu/~burnsma/peopl96a.gif")))
 
 (def cursor
   "Input cell. Index of the current image URL."
@@ -44,7 +44,13 @@
 
 (def current-image
   "Formula cell. URL of the currently selected image."
-  (cell (get images cursor)))
+  (cell (nth images cursor)))
+
+(def next-image
+  "Formula cell. URL of the next image. Available for prefetching."
+  (cell (->> images
+             (drop (inc cursor))
+             first)))
 
 (def image-style-base
   [[:background-size "cover"]
@@ -66,9 +72,7 @@
   "creates background style on the body element with the image-url value"
   (cell (-> [:background (format "url(%s)" current-image)]
             (cons image-style-base)
-            inline-style-map)
-                                        ;(format "background: url(%s); background-size: cover; position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 1;" current-image)
-   ))
+            inline-style-map)))
 
 ;;; style maps
 
@@ -92,6 +96,10 @@
    :text-align "center"
    :padding "10px"})
 
+(def prefetch-image-style
+  {:display "none"
+   :z-index "-1"})
+
 ;;; initialize
 
 (.on (js/jQuery "body") "keypress click" #(if (and (= (.-type %) "keypress")
@@ -101,7 +109,7 @@
 
 (flickr "flickr.interestingness.getList"
         {"api_key" "d4fbe84122c1fb2c58dcdd974f5e46ef", "per_page" 500}
-        #(swap! images into (map image-url (get-in % ["photos" "photo"]))))
+        #(swap! images concat (map image-url (get-in % ["photos" "photo"]))))
 
 (html
  (head
@@ -109,6 +117,8 @@
  (body
   (reactive-attributes
    (div {:do [(d/attr! :style current-image-style)]})
+   (img {:do [(d/attr! :src next-image)
+              (d/attr! :style (inline-style-map prefetch-image-style))]})
    (span {:do [(d/text! (if ready? (str (inc cursor) "/" (count images)) "Loading..."))
                (d/attr! :style (inline-style-map page-marker-style))]})
    (br)
