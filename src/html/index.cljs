@@ -92,14 +92,12 @@
    :text-align "center"
    :padding "10px"})
 
-(defn inline-style-map
-  [map]
-  (apply str (interpose " " (for [[k v] map]
-  (str (name k) ": " v ";")))))
-
 ;;; initialize
 
-(.on (js/jQuery "body") "keypress click" #(swap! cursor inc))
+(.on (js/jQuery "body") "keypress click" #(if (and (= (.-type %) "keypress")
+                                                   (= (.-key %) "Backspace"))
+                                            (swap! cursor dec)
+                                            (swap! cursor inc)))
 
 (flickr "flickr.interestingness.getList"
         {"api_key" "d4fbe84122c1fb2c58dcdd974f5e46ef", "per_page" 500}
@@ -114,5 +112,5 @@
    (span {:do [(d/text! (if ready? (str (inc cursor) "/" (count images)) "Loading..."))
                (d/attr! :style (inline-style-map page-marker-style))]})
    (br)
-   (span {:do [(d/text! (if ready? "Press a key or click the mouse for a new image."))
+   (span {:do [(d/text! (if ready? "Press a key or click the mouse for a new image. Hit backspace to go back a slide."))
                (d/attr! :style (inline-style-map helper-text-style))]}))))
