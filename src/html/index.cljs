@@ -46,9 +46,29 @@
   "Formula cell. URL of the currently selected image."
   (cell (get images cursor)))
 
+(def image-style-base
+  [[:background-size "cover"]
+   [:position "fixed"]
+   [:top "0"]
+   [:bottom "0"]
+   [:left "0"]
+   [:right "0"]
+   [:z-index "1"]])
+
+(defn inline-style-map
+  [map]
+  (apply str (interpose " "
+                        (for [[k v] map]
+                          (str (name k) ": " v ";")))))
+
+
 (def current-image-style
   "creates background style on the body element with the image-url value"
-  (cell (format "background: url(%s); background-size: cover; position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 1;" current-image)))
+  (cell (-> [:background (format "url(%s)" current-image)]
+            (cons image-style-base)
+            inline-style-map)
+                                        ;(format "background: url(%s); background-size: cover; position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 1;" current-image)
+   ))
 
 ;;; style maps
 
