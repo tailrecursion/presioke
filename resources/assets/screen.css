@@ -1,0 +1,30 @@
+body {
+  font-family: sans;
+}
+
+span.page_marker {
+  z-index:       2;
+  position:      absolute;
+  background:    rgba(0,0,0,0.5);
+  border-radius: 30px;
+  color:         #fff;
+  padding:       10px;
+}
+
+span.helper_text {
+  z-index:       2;
+  position:      absolute;
+  background:    rgba(0,0,0,0.5);
+  border-radius: 30px;
+  color:         #fff;
+  bottom:        0;
+  left:          0;
+  right:         0;
+  text-align:    center;
+  padding:       10px;
+}
+
+img.prefetch {
+  display: none;
+  z-index: -1;
+}

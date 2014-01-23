@@ -22,11 +22,11 @@
 
 ;;; cells
 
-(defc images         ["http://www.auburn.edu/~burnsma/peopl96a.gif"])
-(defc cursor         0)
-(defc= ready?        (> (dec (count images)) cursor))
-(defc= current-image (nth images cursor))
-(defc= next-image    (first (drop (inc cursor) images)))
+(defc  images         ["http://www.auburn.edu/~burnsma/peopl96a.gif"])
+(defc  cursor         0)
+(defc= ready?         (> (dec (count images)) cursor))
+(defc= current-image  (nth images cursor))
+(defc= next-image     (first (drop (inc cursor) images)))
 
 (defc= current-image-style
   [[:background (str "url('" current-image "')")]
@@ -37,32 +37,6 @@
    [:left "0"]
    [:right "0"]
    [:z-index "1"]])
-
-;;; style maps
-
-(defc page-marker-style
-  {:z-index "2"
-   :position "absolute"
-   :background "rgba(0,0,0,0.5)"
-   :border-radius "30px"
-   :color "#fff"
-   :padding "10px"})
-
-(defc helper-text-style
-  {:z-index "2"
-   :position "absolute"
-   :background "rgba(0,0,0,0.5)"
-   :border-radius "30px"
-   :color "#fff"
-   :bottom "0"
-   :left "0"
-   :right "0"
-   :text-align "center"
-   :padding "10px"})
-
-(defc prefetch-image-style
-  {:display "none"
-   :z-index "-1"})
 
 ;;; initialize
 
@@ -81,13 +55,14 @@
 
 (html
  (head
-   (title "Presioke"))
+   (title "Presioke")
+   (link :rel "stylesheet" :href "screen.css"))
  (body
   (div :do-css current-image-style)
-  (img :do-css prefetch-image-style
+  (img :class "prefetch"
        :do-attr (cell= {:src next-image}))
-  (span :do-css page-marker-style
+  (span :class "page_marker"
         :do-text (cell= (if ready? (str (inc cursor) "/" (count images)) "Loading...")))
   (br)
-  (span :do-css helper-text-style
+  (span :class "helper_text"
         :do-text (cell= (if ready? "Press a key or click the mouse for a new image. Hit backspace to go back a slide.")))))
