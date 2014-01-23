@@ -2,6 +2,15 @@ body {
   font-family: sans;
 }
 
+div.current_image {
+  position:        fixed;
+  top:             0;
+  bottom:          0;
+  left:            0;
+  right:           0;
+  z-index:         1;
+}
+
 span.page_marker {
   z-index:       2;
   position:      absolute;
