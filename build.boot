@@ -15,12 +15,6 @@
  ['tailrecursion.hoplon.boot :refer :all]
  ['tailrecursion.boot.task :refer :all])
 
-(deftask prod
-  "Compile the application in advanced mode."
-  [& args]
-  (hoplon {:optimizations :advanced
-           :prerender true}))
-
 (defn play!
   [file]
   (set-env! :dependencies '[[javazoom/jlayer "1.0.1"]])
@@ -44,11 +38,6 @@
              (play! "failure.mp3")
              (throw t))))))
 
-(deftask hack!
-  "Continuously compile the application and skip prerender."
-  [& args]
-  (comp (watch) (notify-sound) (hoplon {:prerender false})))
-
 (deftask nrepl
   [& [{:keys [port] :or {port 0}}]]
   (fn [continue]
@@ -61,3 +50,14 @@
         (.deleteOnExit (java.io.File. ".nrepl-port"))
         (continue event)
         @(promise)))))
+
+(deftask prod
+  "Compile the application in advanced mode."
+  [& args]
+  (hoplon {:optimizations :advanced
+           :prerender true}))
+
+(deftask hack!
+  "Continuously compile the application and skip prerender."
+  [& args]
+  (comp (watch) (notify-sound) (hoplon {:prerender false})))
