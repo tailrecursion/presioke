@@ -10,10 +10,10 @@ obtain random images and display them in the browser.  [Try it](http://alandiper
 
 ## Development
 
-1. Start the auto-compiler.
+1. Start the auto-compiler and get audio compiler feedback:
 
 ```bash
-$ boot hack!
+$ boot watch hear hoplon
 ```
 
 2. Open the compiled html file.

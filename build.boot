@@ -2,12 +2,10 @@
 
 #tailrecursion.boot.core/version "2.0.0"
 
-(def notify-deps '[[javazoom/jlayer "1.0.1"]])
-
 (set-env!
  :project      'tailrecursion/presioke
  :version      "0.1.0-SNAPSHOT"
- :dependencies (concat (read-string (slurp "deps.edn")) notify-deps)
+ :dependencies (read-string (slurp "deps.edn"))
  :src-paths    #{"src"}
  :out-path     "resources/public")
 
@@ -16,9 +14,10 @@
 (require
  '[tailrecursion.hoplon.boot :refer :all]
  '[tailrecursion.boot.task :refer :all]
- '[tailrecursion.boot.task.notify :refer [notify-sound]])
+ '[tailrecursion.boot.task.notify :refer [hear]])
 
 (deftask nrepl
+  "Runs an nrepl server."
   [& [{:keys [port] :or {port 0}}]]
   (fn [continue]
     (fn [event]
@@ -36,8 +35,3 @@
   [& args]
   (hoplon {:optimizations :advanced
            :prerender true}))
-
-(deftask hack!
-  "Continuously compile the application and skip prerender."
-  [& args]
-  (comp (nrepl) (watch) (notify-sound) (hoplon {:prerender false})))
