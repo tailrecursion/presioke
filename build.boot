@@ -2,41 +2,21 @@
 
 #tailrecursion.boot.core/version "2.0.0"
 
+(def notify-deps '[[javazoom/jlayer "1.0.1"]])
+
 (set-env!
  :project      'tailrecursion/presioke
  :version      "0.1.0-SNAPSHOT"
- :dependencies (read-string (slurp "deps.edn"))
+ :dependencies (concat (read-string (slurp "deps.edn")) notify-deps)
  :src-paths    #{"src"}
  :out-path     "resources/public")
 
 (add-sync! (get-env :out-path) #{"resources/assets"})
 
 (require
- ['tailrecursion.hoplon.boot :refer :all]
- ['tailrecursion.boot.task :refer :all])
-
-(defn play!
-  [file]
-  (set-env! :dependencies '[[javazoom/jlayer "1.0.1"]])
-  (require '[clojure.java.io :as io])
-  (future
-    (eval
-     `(let [bis# (-> (~'io/resource ~file)
-                     ~'io/file
-                     java.io.FileInputStream.
-                     java.io.BufferedInputStream.)]
-        (.play (javazoom.jl.player.Player. bis#))))))
-
-(deftask notify-sound
-  [& args]
-  (fn [continue]
-    (fn [event]
-      (try (let [ret (continue event)]
-             (play! "success.mp3")
-             ret)
-           (catch Throwable t
-             (play! "failure.mp3")
-             (throw t))))))
+ '[tailrecursion.hoplon.boot :refer :all]
+ '[tailrecursion.boot.task :refer :all]
+ '[tailrecursion.boot.task.notify :refer [notify-sound]])
 
 (deftask nrepl
   [& [{:keys [port] :or {port 0}}]]
@@ -60,4 +40,4 @@
 (deftask hack!
   "Continuously compile the application and skip prerender."
   [& args]
-  (comp (watch) (notify-sound) (hoplon {:prerender false})))
+  (comp (nrepl) (watch) (notify-sound) (hoplon {:prerender false})))
