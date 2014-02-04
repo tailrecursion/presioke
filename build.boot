@@ -25,12 +25,13 @@
   [file]
   (set-env! :dependencies '[[javazoom/jlayer "1.0.1"]])
   (require '[clojure.java.io :as io])
-  (eval
-   `(let [bis# (-> (~'io/resource ~file)
-                  ~'io/file
-                  java.io.FileInputStream.
-                  java.io.BufferedInputStream.)]
-      (.play (javazoom.jl.player.Player. bis#)))))
+  (future
+    (eval
+     `(let [bis# (-> (~'io/resource ~file)
+                     ~'io/file
+                     java.io.FileInputStream.
+                     java.io.BufferedInputStream.)]
+        (.play (javazoom.jl.player.Player. bis#))))))
 
 (deftask notify-sound
   [& args]
