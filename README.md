@@ -13,7 +13,7 @@ obtain random images and display them in the browser.  [Try it](http://alandiper
 1. Start the auto-compiler and get audio compiler feedback:
 
 ```bash
-$ boot watch hear hoplon
+$ boot watch hear [hoplon {:prerender false}]
 ```
 
 2. Open the compiled html file.
