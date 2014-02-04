@@ -7,7 +7,6 @@ obtain random images and display them in the browser.  [Try it](http://alandiper
 
 - java 1.7+
 - [boot][1]
-- [leiningen][2]
 
 ## Usage
 
@@ -28,7 +27,6 @@ $ open index.html
 ```
 
 [1]: https://github.com/tailrecursion/boot
-[2]: https://github.com/technomancy/leiningen
 
 ## License
 

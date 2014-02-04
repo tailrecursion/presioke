@@ -1,7 +1,5 @@
 (page "index.html")
 
-;;; flickr API
-
 (defn flickr
   "Invokes the flickr API method with params and calls the success
   function."
@@ -20,38 +18,39 @@
   [{:strs [farm server id secret]}]
   (str "http://farm" farm ".staticflickr.com/" server "/" id "_" secret ".jpg"))
 
-;;; cells
-
 (defc  images        ["http://www.auburn.edu/~burnsma/peopl96a.gif"])
 (defc  cursor        0)
 (defc= ready?        (> (dec (count images)) cursor))
 (defc= current-image (nth images cursor))
-(defc= next-image    (first (drop (inc cursor) images)))
+(defc= next-image    (and ready? (nth images (inc cursor))))
+(defc= splash?       (and ready? (zero? cursor)))
+(defc= location      (if ready? (str (inc cursor) "/" (count images)) "Loading..."))
 
-;;; initialize
+(defn add-handlers! []
+  (doto (js/jQuery "html")
+    (.on "keyup" (fn [e]
+                   (if (= (.-keyCode e) 8)
+                     (swap! cursor #(if (pos? %) (dec %) %))
+                     (swap! cursor inc))))
+    (.on "click" #(swap! cursor inc))))
 
-(doto (js/jQuery "html")
-  (.on "keyup" (fn [e]
-                 (if (= (.-keyCode e) 8)
-                   (swap! cursor #(if (pos? %) (dec %) %))
-                   (swap! cursor inc))))
-  (.on "click" #(swap! cursor inc)))
+(defn fetch! []
+  (flickr "flickr.interestingness.getList"
+          {"api_key" "d4fbe84122c1fb2c58dcdd974f5e46ef", "per_page" 500}
+          #(swap! images concat (map image-url (get-in % ["photos" "photo"])))))
 
-(flickr "flickr.interestingness.getList"
-        {"api_key" "d4fbe84122c1fb2c58dcdd974f5e46ef", "per_page" 500}
-        #(swap! images concat (map image-url (get-in % ["photos" "photo"]))))
+(add-initfn! #(do (add-handlers!) (fetch!)))
 
 (html
  (head
-   (title "Presioke")
+   (title "Presioke • Presentation Party Game")
    (link :rel "stylesheet" :href "screen.css"))
  (body
   (div :class "current_image"
-       :do-css (cell= {:background (str "url(" current-image ")")
-                       :background-size "cover"}))
-  (img :class "prefetch"
-       :do-attr (cell= {:src next-image}))
-  (span :class "page_marker"
-        :do-text (cell= (if ready? (str (inc cursor) "/" (count images)) "Loading...")))
+       :css (cell= {:background      (str "url(" current-image ")")
+                    :background-size "cover"}))
+  (img :class "prefetch" :src next-image)
+  (span :class "page_marker" :text location)
   (span :class "helper_text"
-        :do-text (cell= (if ready? "Press a key or click the mouse for a new image. Hit backspace to go back a slide.")))))
+        :slide-toggle splash?
+        :text (cell= (if splash? "Press a key or click the mouse for a new image. Hit backspace to go back a slide.")))))
