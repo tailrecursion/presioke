@@ -8,15 +8,12 @@ obtain random images and display them in the browser.  [Try it](http://alandiper
 - java 1.7+
 - [boot][1]
 
-## Usage
-
-You'll probably want to have two terminals open in your project's
-directory.
+## Development
 
 1. Start the auto-compiler.
 
 ```bash
-$ boot watch hoplon
+$ boot hack!
 ```
 
 2. Open the compiled html file.
@@ -24,6 +21,12 @@ $ boot watch hoplon
 ```bash
 $ cd resources/public
 $ open index.html
+```
+
+## Compile for Production
+
+```bash
+$ boot prod
 ```
 
 [1]: https://github.com/tailrecursion/boot

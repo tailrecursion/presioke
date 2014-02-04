@@ -22,3 +22,14 @@
 (require
  ['tailrecursion.hoplon.boot :refer :all]
  ['tailrecursion.boot.task :refer :all])
+
+(deftask prod
+  "Compile the application in advanced mode."
+  [& args]
+  (boot [hoplon {:optimizations :advanced
+                 :prerender true}]))
+
+(deftask hack!
+  "Continuously compile the application and skip prerender."
+  [& args]
+  (boot watch [hoplon {:prerender false}]))
