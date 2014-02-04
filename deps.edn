@@ -1,0 +1,4 @@
+[[tailrecursion/boot.core "2.0.0"]
+ [tailrecursion/boot.task "2.0.0"]
+ [tailrecursion/hoplon "5.1.1"]
+ [org.clojure/clojurescript "0.0-2138"]]
