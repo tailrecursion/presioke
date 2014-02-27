@@ -1,6 +1,6 @@
 #!/usr/bin/env boot
 
-#tailrecursion.boot.core/version "2.0.0"
+#tailrecursion.boot.core/version "2.2.1"
 
 (set-env!
  :project      'tailrecursion/presioke
